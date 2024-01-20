@@ -29,24 +29,43 @@ function demoInfo(id) {
     })
 };
 
-// function plotCreation(id) {
-//  d3.json(url).then(function (data) {
-//      // define variables
-//     let sampleData = data;
-//     // get samples data
-//     let samples = sampleData.samples;
-//     // filter each sample
-//     let ID = samples.filter(sample => sample.id === id);
-//     let filteredSample = ID[0];
-//     // call OTU ids/values
-//     let OTUvalues = filteredSample.sample_values.slice(0, 10).reverse();
-//     let OTUids = filteredSample.otu_ids.slice(0, 10).reverse();
-//     // add labels 
-//     let labels = filteredSample.otu_labels.slice(0, 10).reverse();
+// //////////////////////////////////////////////////////////////////
+// Create plots
+function plotCreation(id) {
+ d3.json(url).then(function (data) {
+     // define variables
+    let sampleData = data;
+    // get samples data
+    let samples = sampleData.samples;
+    // filter each sample
+    let ID = samples.filter(sample => sample.id === id);
+    let filteredSample = ID[0];
+    // call OTU ids/values
+    let OTUvalues = filteredSample.sample_values.slice(0, 10).reverse();
+    let OTUids = filteredSample.otu_ids.slice(0, 10).reverse();
+    // add labels 
+    let labels = filteredSample.otu_labels.slice(0, 10).reverse();
+    // Bar Chart Info
+        // trace info
+        let barTrace = {
+            x: OTUvalues,
+            y: OTUids.map(object => 'OTU ' + object),
+            name: labels,
+            type: 'bar',
+            orientation: 'h'
+        };
+        // bar chart layout
+        let barLayout = {
+            title: `Test Subject No. ${id}`,
+        };
+        // bar chart plotting
+        let barData = [barTrace];
+        Plotly.newPlot('bar', barData, barLayout);
+ }
+ );
 
-//  }
-//  );
 
+// //////////////////////////////////////////////////////////////////
 // Initialize dropdown menu function
 function init() {
     let dropDown = d3.select('#selDataset');
@@ -64,12 +83,12 @@ function init() {
     })
 };
 
-
+// ///////////////////////////////////////////////////////////////////
 // Changed sample
 function optionChanged(id) {
     plotCreation(id);
     demoInfo(id);
 };
 
-
+// Initialize page
 init();
