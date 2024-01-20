@@ -29,17 +29,47 @@ function demoInfo(id) {
     })
 };
 
-function plotCreation(id) {
- d3.json(url).then(function (data) {
-     // define variables
-    let sampleData = data;
-    // get samples data
-    let samples = sampleData.samples;
-    // filter each sample
-    let ID = samples.filter(sample => sample.id === id);
-    let filteredSample = ID[0];
-    // call OTU ids/values
-    let OTUvalues = filteredSample.sample_values.slice(0, 10).reverse();
-    let OTUids = filteredSample.otu_ids.slice(0, 10).reverse();
-    // add labels 
-    let labels = filteredSample.otu_labels.slice(0, 10).reverse();
+// function plotCreation(id) {
+//  d3.json(url).then(function (data) {
+//      // define variables
+//     let sampleData = data;
+//     // get samples data
+//     let samples = sampleData.samples;
+//     // filter each sample
+//     let ID = samples.filter(sample => sample.id === id);
+//     let filteredSample = ID[0];
+//     // call OTU ids/values
+//     let OTUvalues = filteredSample.sample_values.slice(0, 10).reverse();
+//     let OTUids = filteredSample.otu_ids.slice(0, 10).reverse();
+//     // add labels 
+//     let labels = filteredSample.otu_labels.slice(0, 10).reverse();
+
+//  }
+//  );
+
+// Initialize dropdown menu function
+function init() {
+    let dropDown = d3.select('#selDataset');
+    let id = dropDown.property('value');
+    d3.json(url).then(function(data) {
+        let sampleData = data;
+        let names = sampleData.names;
+        let samples = sampleData.samples;
+        Object.values(names).forEach(value => {
+            dropDown.append('option').text(value);
+        })
+        // reflect on demographic info and plots
+        demoInfo(names[0]);
+        plotCreation(names[0])
+    })
+};
+
+
+// Changed sample
+function optionChanged(id) {
+    plotCreation(id);
+    demoInfo(id);
+};
+
+
+init();
