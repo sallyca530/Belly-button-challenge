@@ -1,12 +1,8 @@
 // get url data
 const url = 'https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json'
-
-
 // confirm retrieval of data
 const dataPromise = d3.json(url);
     console.log("Data Promise: ", dataPromise);
-
-
 // //////////////////////////////////////////////////////////////////
 // Pull the Json data 
 // Sample data function for the "demographics info"
@@ -28,7 +24,6 @@ function demoInfo(id) {
         })
     })
 };
-
 // //////////////////////////////////////////////////////////////////
 // Create plots
 function plotCreation(id) {
@@ -43,28 +38,49 @@ function plotCreation(id) {
     // call OTU ids/values
     let OTUvalues = filteredSample.sample_values.slice(0, 10).reverse();
     let OTUids = filteredSample.otu_ids.slice(0, 10).reverse();
-    // add labels 
+    // add OTU labels 
     let labels = filteredSample.otu_labels.slice(0, 10).reverse();
+    ////////////////////////////////////////////////////////////
     // Bar Chart Info
-        // trace info
-        let barTrace = {
-            x: OTUvalues,
-            y: OTUids.map(object => 'OTU ' + object),
-            name: labels,
-            type: 'bar',
-            orientation: 'h'
-        };
-        // bar chart layout
-        let barLayout = {
-            title: `Test Subject No. ${id}`,
-        };
-        // bar chart plotting
-        let barData = [barTrace];
-        Plotly.newPlot('bar', barData, barLayout);
- }
- );
-
-
+     // trace info - for each id (test subject)
+    let barTrace = {
+        x: OTUvalues,
+        y: OTUids.map(object => 'OTU ' + object),
+        name: labels,
+        type: 'bar',
+        orientation: 'h'
+    };
+    // bar chart layout
+    let barLayout = {
+        title: `Test Subject No. ${id}`,
+    };
+    // bar chart plotting
+    let barData = [barTrace];
+     Plotly.newPlot('bar', barData, barLayout);
+    ////////////////////////////////////////////////////////////
+    // Bubble Chart info
+    // Trace info
+    let bubbleTrace = {
+        x: filteredSample.otu_ids,
+        y: filteredSample.sample_values,
+        mode: 'markers',
+        marker: {
+            size: filteredSample.sample_values,
+            color: filteredSample.otu_ids,
+            colorscale: 'Earth'
+            },
+        text: filteredSample.otu_labels,
+    };
+    // Bubble chart layout
+    let bubbleLayout = {
+        title: `Test Subject No. ${id}`,
+        xaxis: { title: 'OTU ID' },
+    };
+    // Bubble chart plotting
+    let bubbleData = [bubbleTrace];
+    Plotly.newPlot('bubble', bubbleData, bubbleLayout);
+ })
+};
 // //////////////////////////////////////////////////////////////////
 // Initialize dropdown menu function
 function init() {
@@ -82,13 +98,11 @@ function init() {
         plotCreation(names[0])
     })
 };
-
 // ///////////////////////////////////////////////////////////////////
 // Changed sample
 function optionChanged(id) {
     plotCreation(id);
     demoInfo(id);
 };
-
 // Initialize page
 init();
