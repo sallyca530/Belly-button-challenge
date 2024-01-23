@@ -1,8 +1,11 @@
 // get url data
 const url = 'https://2u-data-curriculum-team.s3.amazonaws.com/dataviz-classroom/v1.1/14-Interactive-Web-Visualizations/02-Homework/samples.json'
+
+// //////////////////////////////////////////////////////////////////
 // confirm retrieval of data
 const dataPromise = d3.json(url);
     console.log("Data Promise: ", dataPromise);
+
 // //////////////////////////////////////////////////////////////////
 // Pull the Json data 
 // Sample data function for the "demographics info"
@@ -24,11 +27,12 @@ function demoInfo(id) {
         })
     })
 };
+
 // //////////////////////////////////////////////////////////////////
 // Create plots
 function plotCreation(id) {
  d3.json(url).then(function (data) {
-     // define variables
+    // define variables
     let sampleData = data;
     // get samples data
     let samples = sampleData.samples;
@@ -42,7 +46,7 @@ function plotCreation(id) {
     let labels = filteredSample.otu_labels.slice(0, 10).reverse();
     ////////////////////////////////////////////////////////////
     // Bar Chart Info
-     // trace info - for each id (test subject)
+    // trace info - for selected id (test subject)
     let barTrace = {
         x: OTUvalues,
         y: OTUids.map(object => 'OTU ' + object),
@@ -59,7 +63,7 @@ function plotCreation(id) {
      Plotly.newPlot('bar', barData, barLayout);
     ////////////////////////////////////////////////////////////
     // Bubble Chart info
-    // Trace info
+    // trace info - for selected id (test subject)
     let bubbleTrace = {
         x: filteredSample.otu_ids,
         y: filteredSample.sample_values,
@@ -81,14 +85,18 @@ function plotCreation(id) {
     Plotly.newPlot('bubble', bubbleData, bubbleLayout);
  })
 };
+
 // //////////////////////////////////////////////////////////////////
 // Initialize dropdown menu function
 function init() {
     let dropDown = d3.select('#selDataset');
     let id = dropDown.property('value');
     d3.json(url).then(function(data) {
+        // define variables
         let sampleData = data;
+        // get names data
         let names = sampleData.names;
+        // get samples data
         let samples = sampleData.samples;
         Object.values(names).forEach(value => {
             dropDown.append('option').text(value);
@@ -98,11 +106,14 @@ function init() {
         plotCreation(names[0])
     })
 };
+
 // ///////////////////////////////////////////////////////////////////
 // Changed sample
 function optionChanged(id) {
     plotCreation(id);
     demoInfo(id);
 };
+
+// //////////////////////////////////////////////////////////////////
 // Initialize page
 init();
