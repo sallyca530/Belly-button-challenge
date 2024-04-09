@@ -40,9 +40,7 @@ Present demographic information by displaying key-value pairs from the metadata 
     })
 };
 
-![image](data/images/dropdown_init.png)
-
-![image](data/images/demographics.png)
+![image](data/images/dropdown_init.png)      ![image](data/images/demographics.png)
 
 
 ### Plot Creation
