@@ -2,10 +2,10 @@
 
 
 
-**[Github Page](https://sallyca530.github.io/Belly-button-challenge/)**
+**[Deploy Github Page](https://sallyca530.github.io/Belly-button-challenge/)**
 
 ## Introduction
-n this assignment, we delve into the fascinating world of microbial diversity residing in human navels. By leveraging JavaScript and D3.js, we present an interactive dashboard that allows exploration of the Belly Button Biodiversity dataset. This dataset sheds light on the prevalence of various microbial species among individuals, offering insights into our microbial companions. Through horizontal bar charts, bubble charts, and metadata display, users can interactively engage with the data, gaining a deeper understanding of the microbial ecosystems thriving in our navels.
+This project delves into the realm of microbial diversity residing in human navels. By leveraging HTML, JavaScript, and D3.js, a presentation of an interactive dashboard that allows exploration of the belly button biodiversity dataset. This dataset sheds light on the prevalence of various microbial species among individuals, offering insights into the differing of microbial populations. Through horizontal bar charts, bubble charts, and metadata display, users can interactively engage with the data, gaining a deeper understanding of the microbial ecosystems thriving in human navels.
 
 ![image](data/images/dashboard.png)
 
@@ -44,10 +44,6 @@ Present demographic information by displaying key-value pairs from the metadata 
 
 
 ### Plot Creation
-
-Bar Chart: Create a horizontal bar chart showcasing the top 10 Operational Taxonomic Units (OTUs) found in an individual's navel. Utilize D3.js for data binding, with sample values as bar heights, OTU IDs as labels, and OTU labels as hover text.
-
-Bubble Chart: Develop a bubble chart illustrating each sample's microbial composition. Use OTU IDs for x-values, sample values for y-values and marker size, and OTU labels for text values. Marker colors can be derived from OTU IDs.
 
     function plotCreation(id) {
     d3.json(url).then(function (data) {
@@ -105,17 +101,18 @@ Bubble Chart: Develop a bubble chart illustrating each sample's microbial compos
     })
     };
 
-Bar Chart
+**Bar Chart:** Creation of a horizontal bar chart showcasing the top 10 Operational Taxonomic Units (OTUs) found in an individual's navel. Utilize D3.js for data binding, with sample values as bar heights, OTU IDs as labels, and OTU labels as hover text.
 
 ![image](data/images/bar.png)
 
-Bubble Chart 
+**Bubble Chart:** Creation of a bubble chart illustrating each sample's microbial composition. Use OTU IDs for x-values, sample values for y-values and marker size, and OTU labels for text values. Marker colors are derived from OTU IDs.
 
 ![image](data/images/bubble.png)
 
 
 
 ### Interactive Dashboard 
+
 Initialize dropdown and update all plots dynamically upon selection of a new sample. 
 
     function init() {
@@ -150,4 +147,5 @@ Update sample
 * **[Results are based off of belly button biodiversity dataset which catalogs the microbes that colonize human navels](https://robdunnlab.com/projects/belly-button-biodiversity/)**
 
 * object.entries() - https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
 * object.values() -https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_objects/Object/values
